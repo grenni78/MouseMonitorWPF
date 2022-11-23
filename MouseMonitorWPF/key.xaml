@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="MouseMonitorWPF.key"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="74" d:DesignWidth="120">
+    <Grid>
+        <Image Width="75" Height="74" x:Name="KeyNormal" Source="res/key_normal.png"/>
+        <Image Width="120" Height="74" x:Name="KeyWide" Source="res/key_wide.png" Opacity="0"/>
+        <TextBox x:Name="KeyValue" HorizontalAlignment="Center" Height="48" Margin="10,12,10,14" TextWrapping="NoWrap" Text="F6" VerticalAlignment="Center" Width="100" FontWeight="Bold" FontSize="36" FontFamily="Segoe UI Semibold" IsReadOnly="True" IsUndoEnabled="False" MaxLines="1" MaxLength="5" Background="Transparent" Foreground="Black" BorderThickness="0" TextAlignment="Center"/>
+    </Grid>
+</UserControl>

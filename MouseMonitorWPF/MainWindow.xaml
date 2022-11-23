@@ -1,0 +1,83 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mm="clr-namespace:MouseMonitorWPF"
+        xmlns:p="clr-namespace:MouseMonitorWPF.Properties" 
+        x:Name="MouseMonitor"
+        x:Class="MouseMonitorWPF.MainWindow"
+        Title="MouseMonitor"
+        Height="240"
+        Width="800"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        Icon="res/mouse.ico"
+        ResizeMode="NoResize"
+        Topmost="True"
+        IsHitTestVisible="False"
+        Focusable="False"
+        IsTabStop="False"
+        SourceInitialized="MouseMonitor_SourceInitialized"
+        Opacity="0.7"
+        ShowInTaskbar="False" >
+    <Window.Resources>
+        <mm:PercentageToFloatConverter x:Key="PercentageConverter" />
+    </Window.Resources>
+    <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="800">
+        <Grid.LayoutTransform>
+            <ScaleTransform
+                CenterX="0"
+                CenterY="0"
+                ScaleX="{Binding Source={x:Static p:Settings.Default}, Path=Scale}"
+                ScaleY="{Binding Source={x:Static p:Settings.Default}, Path=Scale}"
+            />
+        </Grid.LayoutTransform>
+
+        <Image x:Name="MouseImage" HorizontalAlignment="Right" Height="240" VerticalAlignment="Top" Width="200" Grid.Row="0" Stretch="Fill" Source="res/mouse.png"/>
+        <Image x:Name="MouseImage_lmb" HorizontalAlignment="Right" Height="240" VerticalAlignment="Top" Width="200" Grid.Row="0" Stretch="Fill" Opacity="0" Source="res/mouse_lmb.png"/>
+        <Image x:Name="MouseImage_rmb" HorizontalAlignment="Right" Height="240" VerticalAlignment="Top" Width="200" Grid.Row="0" Stretch="Fill" Opacity="0" Source="res/mouse_rmb.png"/>
+        <Image x:Name="MouseImage_mmb" HorizontalAlignment="Right" Height="240" VerticalAlignment="Top" Width="200" Grid.Row="0" Stretch="Fill" Opacity="0" Source="res/mouse_mmb.png"/>
+        <Image x:Name="MouseImage_scroll" HorizontalAlignment="Right" Height="240" VerticalAlignment="Top" Width="200" Grid.Row="0" Stretch="Fill" Opacity="0" Source="res/mouse_scrlup.0.png"/>
+
+        <mm:NotifyIcon x:Name="TrayIcon" Icon="res/mouse.ico" Text="MouseMonitor" Visibility="Visible">
+            <mm:NotifyIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Position..." >
+                        <MenuItem Header="Unten rechts" Click="onPosition_BottomRight"></MenuItem>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Sichtbarkeit...">
+                        <MenuItem Header="100%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=1.0, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="90%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.9, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="80%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.8, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="70%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.7, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="60%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.6, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="50%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.5, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="40%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.4, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="30%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.3, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="20%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.2, NotifyOnSourceUpdated=True}"/>
+                        <MenuItem Header="10%" Click="onOpacityChange" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=Opacity, Mode=TwoWay, Converter={StaticResource PercentageConverter}, ConverterParameter=0.1, NotifyOnSourceUpdated=True}"/>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Filter...">
+                        <MenuItem Header="F1-F12" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowFKeys, Mode=TwoWay}"/>
+                        <MenuItem Header="Strg" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowControlKey, Mode=TwoWay}"/>
+                        <MenuItem Header="Alt" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowAltKey, Mode=TwoWay}"/>
+                        <MenuItem Header="Shift" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowShiftKey, Mode=TwoWay}"/>
+                        <MenuItem Header="Enter" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowEnterKey, Mode=TwoWay}"/>
+                        <MenuItem Header="0-9" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowNumberKeys, Mode=TwoWay}"/>
+                        <MenuItem Header="A-Z" IsCheckable="True" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=ShowNormalKeys, Mode=TwoWay}"/>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Größe...">
+                        <Slider Minimum="0.1" Maximum="1.0" IsSnapToTickEnabled="True" TickFrequency="0.1" Width="120" Value="{Binding Source={x:Static p:Settings.Default}, Path=Scale, Mode=TwoWay}"/>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="beenden" Click="onClose_Application" />
+                </ContextMenu>
+            </mm:NotifyIcon.ContextMenu>
+        </mm:NotifyIcon>
+        <WrapPanel x:Name="KeysPressed" HorizontalAlignment="Left" Height="75" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="620" ScrollViewer.VerticalScrollBarVisibility="Disabled" FlowDirection="RightToLeft"/>
+
+    </Grid>
+</Window>
